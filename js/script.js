@@ -19,12 +19,15 @@ const showItems = async () => {
         items
             .map(item => (
 
-                `
-                    <article>
-                        <img src="${item.imageUrl}" alt="" />
-                        <h3 class="productName">${item.name}</h3>
-                        <p class="productDescription">${item.description}</p>
-                    </article>
+                `<section class="items" id="items${item._id}"> 
+                        <a href="./product.html?id=${item._id}">
+                            <article>
+                                <img src="${item.imageUrl}" alt="" />
+                                <h3 class="productName">${item.name}</h3>
+                                <p class="productDescription">${item.description}</p>
+                            </article>
+                        </a>
+                </section>
                 `
             )).join('')
         );

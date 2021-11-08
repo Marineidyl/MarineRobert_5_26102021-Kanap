@@ -30,19 +30,21 @@ const showProducts = async () => {
             .map(product => (
 
                 `
-                <div class="item__img">
-                    <img src="${product.imageUrl}" alt="" />
-                </div>
-                <div class="item__content">
-                <div class="item__content__titlePrice">
-                  <h1 id="title">${product.name}</h1>
-                  <p>Prix : <span id="price">${product.price}</span>€</p>
-                </div>
-  
-                <div class="item__content__description">
-                  <p class="item__content__description__title">Description :</p>
-                  <p id="description">${product.description}</p>
-                </div>
+                <article id="resultsProducts${product._id}">
+                    <div class="item__img">
+                        <img src="${product.imageUrl}" alt="" />
+                    </div>
+                    <div class="item__content">
+                    <div class="item__content__titlePrice">
+                    <h1 id="title">${product.name}</h1>
+                    <p>Prix : <span id="price">${product.price}</span>€</p>
+                    </div>
+    
+                    <div class="item__content__description">
+                    <p class="item__content__description__title">Description :</p>
+                    <p id="description">${product.description}</p>
+                    </div>
+                </article>
                 `
             )).join('')
         );
