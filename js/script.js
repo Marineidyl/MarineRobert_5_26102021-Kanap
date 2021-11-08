@@ -1,6 +1,6 @@
 const resultsItems = document.getElementById('resultsItems');
 
-let products;
+let items;
 
 // API REQUEST
 const fetchProducts = async() => {
