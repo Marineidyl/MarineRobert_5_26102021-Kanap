@@ -8,7 +8,7 @@
 //         console.log(productsData);
 //     })
 // };
-const results = document.getElementById('results');
+const resultsProducts = document.getElementById('resultsProducts');
 
 let products;
 
@@ -25,16 +25,24 @@ const fetchProducts = async() => {
 const showProducts = async () => {
     await fetchProducts();
 
-    results.innerHTML = (
+    resultsProducts.innerHTML = (
         products
             .map(product => (
 
                 `
-                    <article>
-                        <img src="${product.imageUrl}" alt="" />
-                        <h3 class="productName">${product.name}</h3>
-                        <p class="productDescription">${product.description}</p>
-                    </article>
+                <div class="item__img">
+                    <img src="${product.imageUrl}" alt="" />
+                </div>
+                <div class="item__content">
+                <div class="item__content__titlePrice">
+                  <h1 id="title">${product.name}</h1>
+                  <p>Prix : <span id="price">${product.price}</span>€</p>
+                </div>
+  
+                <div class="item__content__description">
+                  <p class="item__content__description__title">Description :</p>
+                  <p id="description">${product.description}</p>
+                </div>
                 `
             )).join('')
         );
