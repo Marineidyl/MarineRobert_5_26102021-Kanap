@@ -1,5 +1,4 @@
 const section = document.getElementById('items');
-
 let items;
 
 // API REQUEST
@@ -8,15 +7,19 @@ const fetchProducts = async() => {
         'http://localhost:3000/api/products').then(res => 
         res.json());
 }  
-console.log(fetchProducts);
+try {
+    fetchProducts();
+  } catch (error) {
+      alert('Error');
+    console.error(error);
+  }
 
-        
 // catch
     // .catch((err) => alert("Erreur", err));    
-    //     console.log(items);
+    //     console.log(fetchProducts);
 
 
-// Affiche les elements items
+// Affiche les elements > items
 const showItems = async () => {
     await fetchProducts();
 

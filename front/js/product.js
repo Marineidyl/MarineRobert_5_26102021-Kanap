@@ -11,10 +11,16 @@ let description = document.getElementById('description');
 
 fetch(`http://localhost:3000/api/products/${id}`)
         .then(Response => Response.json())
-        .then(item => {
-            img.innerHTML = item.img;
-            title.innerHTML = item.title;
+        .then(item => { 
+            img.innerHTML = item.imageUrl;
+            console.log(item);
+            title.innerHTML = item.name;
             price.innerHTML = item.price;
             description.innerHTML = item.description;
             // option.innerHTML = colorArray(item);
         });
+ 
+
+// console.log(showItems);
+
+// showItems();
