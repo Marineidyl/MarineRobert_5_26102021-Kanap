@@ -7,11 +7,16 @@ const fetchProducts = async() => {
     items = await fetch(
         'http://localhost:3000/api/products').then(res => 
         res.json());
-// catch
-        console.log(items);
-};
+}  
+console.log(fetchProducts);
 
-// Affiche les items
+        
+// catch
+    // .catch((err) => alert("Erreur", err));    
+    //     console.log(items);
+
+
+// Affiche les elements items
 const showItems = async () => {
     await fetchProducts();
 
@@ -31,4 +36,7 @@ const showItems = async () => {
         );
 };
 
+console.log(showItems);
+
 showItems();
+

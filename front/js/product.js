@@ -1,9 +1,20 @@
-// const results = document.getElementsByClassName('item');
-// const img = document.getElementsByClassName('item__img');
-// const title = document.getElementsById('title');
-// const description = document.getElementsById('description');
-// const color = document.getElementsById('colors');
-// const quantity = document.getElementsById('quantity');
-// const quantity = document.getElementsById('addToCart');
+// Récupération de l'url courante
+const params = new URLSearchParams(window.location.search)
+const id = params.get("id")
 
+// Variables des éléments Html (éléments à remplir dynamiquement)
+let img = document.getElementsByClassName('item__img');
+let title = document.getElementById('title');
+let price = document.getElementById("price");
+let description = document.getElementById('description');
+// let color = document.getElementsById('colors');
 
+fetch(`http://localhost:3000/api/products/${id}`)
+        .then(Response => Response.json())
+        .then(item => {
+            img.innerHTML = item.img;
+            title.innerHTML = item.title;
+            price.innerHTML = item.price;
+            description.innerHTML = item.description;
+            // option.innerHTML = colorArray(item);
+        });
