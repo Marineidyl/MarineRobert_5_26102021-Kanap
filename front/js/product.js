@@ -18,7 +18,7 @@ function load_products() {
     fetch(`http://localhost:3000/api/products/${id}`)
         .then(Response => Response.json())
         .then(product => {
-            img.innerHTML = elements_div(product);
+            img.innerHTML = articleImg(product);
             title.innerHTML = product.name;
             price.innerHTML = product.price;
             description.innerHTML = product.description;
@@ -72,10 +72,12 @@ function load_products() {
     )
 }
 
-// Retourne une div avec son contenu
-function elements_div(article) {
-    return `<img src="${article.imageUrl}" alt="${article.altTxt}"></img>` 
+function articleImg(article) {
+    return `<img src="${article.imageUrl}" alt="${article.altTxt}"></img>`
 }
+function articleDescription(article) {
+    return `${article.description}`
+} 
 
 // Retourne une fonction pour le choix des couleurs (jusqu'à 3 couleurs)
 function colorArray(article) {

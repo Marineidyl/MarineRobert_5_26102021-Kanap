@@ -30,7 +30,7 @@ window.addEventListener('load', function () {
       deleteItem();
     }
     
-    //Indique que le panier vide
+    //Indique que le panier est vide
     function cartEmptyFunction() {
       return `<h1> Votre panier est vide </h1>`
     }
@@ -116,4 +116,130 @@ window.addEventListener('load', function () {
       }
       return { quantity: totalQuantity, total: totalPrice };
     }
+  
+  // fonction qui vérifie les champs du formulaire
+  function verificationFirstName() {
+    let firstName = document.getElementById("firstName");
+    let errorFirstName = document.getElementById("firstNameErrorMsg");
+    // Regex
+    let nameValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+
+    if (firstName.validity.valueMissing) {
+      errorFirstName.textContent = 'Prénom manquant';
+    } else if (nameValid.test(firstName.value) == false) {
+      errorFirstName.textContent = 'Format incorrect';
+    } else if (nameValid.test(firstName.value) == true) {
+      errorFirstName.textContent = null;
+      return lastName.value;
+    }
+    return false;
   }
+
+  function verificationLastName() {
+    let lastName = document.getElementById("lastName");
+    let errorLastName = document.getElementById("lastNameErrorMsg");
+    let nameValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+
+    if (lastName.validity.valueMissing) {
+      errorLastName.textContent = 'Nom manquant';
+    } else if (nameValid.test(lastName.value) == false) {
+      errorLastName.textContent = 'Format incorrect';
+    } else if (nameValid.test(lastName.value) == true) {
+      errorLastName.textContent = null;
+      return lastName.value;
+    }
+    return false;
+  }
+
+  function verificationAddress() {
+    let address = document.getElementById("address");
+    let errorAddress = document.getElementById("addressErrorMsg");
+    let nameValid = /^[a-zA-ZéèîïÉÈÎÏ0-9]+([-'\s][a-zA-ZéèîïÉÈÎÏ0-9][a-zéèêàçîï]+)+$/;
+
+    if (address.validity.valueMissing) {
+      errorAddress.textContent = 'Adresse manquante';
+    } else if (nameValid.test(address.value) == false) {
+      errorAddress.textContent = 'Format incorrect';
+    } else if (nameValid.test(address.value) == true) {
+      errorAddress.textContent = null;
+      return address.value;
+    }
+    return false;
+  }
+
+  function verificationCity() {
+    let city = document.getElementById("city");
+    let errorCity = document.getElementById("cityErrorMsg");
+    let nameValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ0-9][a-zéèêàçîï0-9]+)*$/;
+
+    if (city.validity.valueMissing) {
+      errorCity.textContent = 'Ville manquante';
+    } else if (nameValid.test(city.value) == false) {
+      errorCity.textContent = 'Format incorrect';
+    } else if (nameValid.test(city.value) == true) {
+      errorCity.textContent = null;
+      return city.value;
+    }
+    return false
+  }
+
+  function verificationEmail() {
+    let email = document.getElementById("email");
+    let errorEmail = document.getElementById("emailErrorMsg");
+    let nameValid = /^[a-zA-Z-0-9]+@[a-zA-Z-]+\.[a-zA-Z]{2,6}$/;
+
+    if (email.validity.valueMissing) {
+      errorEmail.textContent = 'Email manquant';
+    } else if (nameValid.test(email.value) == false) {
+      errorEmail.textContent = 'Format incorrect';
+    } else if (nameValid.test(email.value) == true) {
+      errorEmail.textContent = null;
+      return email.value;
+    }
+    return false;
+
+  }
+  let btnOrder = document.getElementById("order");
+    
+  btnOrder.addEventListener('click', e => {
+    e.preventDefault();
+    let valid = 1;
+    let contact = {};
+    let firstName = verificationFirstName();
+    let lastName = verificationLastName();
+    let address = verificationAddress();
+    let city = verificationCity();
+    let email = verificationEmail();
+
+    if (email) {
+      contact["firstName"] = firstName;
+      contact["lastName"] = lastName;
+      contact["address"] = address;
+      contact["city"] = city;
+      contact["email"] = email;
+    } else {
+      valid = 0;
+    }
+    
+      // Si tous les champs son correct alors fetch vers le order
+    let arrayContact = []
+    for (let id in cart) {
+      arrayContact.push(id);
+    }
+    
+    if (valid) {
+      fetch(`http://localhost:3000/api/products/order`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contact, products: arrayContact })
+      })
+        .then(Response => Response.json())
+        .then(Response => {
+          localStorage.setItem("orderId", Response.orderId);
+          
+          // Add orderid avec confirmation
+          document.location.href = "confirmation.html";
+        })
+    }
+  });
+}
