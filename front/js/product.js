@@ -27,10 +27,10 @@ function load_products() {
             //selection de l'id colors
             const idColors = document.querySelector("#colors");
 
-            //Selection du bouton add to cart
+            //Selection du bouton add to cart, on récupère l'élément sur lequel on veut détecter le clic
             const btnSendCart = document.querySelector("#addToCart");
 
-            //Envoyer le panier
+            //Envoyer le panier et on écoute l'événement click
             btnSendCart.addEventListener("click", (event) => {
                 event.preventDefault();
 

@@ -199,8 +199,10 @@ window.addEventListener('load', function () {
     return false;
 
   }
+  // On récupère l'élément sur lequel on veut détecter le clic
   let btnOrder = document.getElementById("order");
     
+  // On écoute l'événement click
   btnOrder.addEventListener('click', e => {
     e.preventDefault();
     let valid = 1;
